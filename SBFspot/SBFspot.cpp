@@ -515,7 +515,7 @@ E_SBFSPOT initialiseSMAConnection(const char *BTAddress, InverterData *inverters
 
 		// Copy previously converted BT address
 		for (int i=0; i<6; i++)
-			inverters[0]->BTAddress[i] = (unsigned char)tmp[i];
+            RootDeviceAddress[i] = inverters[0]->BTAddress[i] = (unsigned char)tmp[i];
 
 		// Call 2.0.6 init function
 		return initialiseSMAConnection(inverters[0]);
@@ -1010,7 +1010,7 @@ E_SBFSPOT SetPlantTime(time_t ndays, time_t lowerlimit, time_t upperlimit)
     do
     {
         pcktID++;
-        writePacketHeader(pcktBuf, 0x01, addr_unknown);
+        writePacketHeader(pcktBuf, 0x01, RootDeviceAddress);
         writePacket(pcktBuf, 0x10, 0xA0, 0, anySUSyID, anySerial);
         writeLong(pcktBuf, 0xF000020A);
         writeLong(pcktBuf, 0x00236D00);
@@ -1114,8 +1114,8 @@ E_SBFSPOT SetPlantTime(time_t ndays, time_t lowerlimit, time_t upperlimit)
 		do
 		{
 			pcktID++;
-			writePacketHeader(pcktBuf, 0x01, addr_unknown);
-			writePacket(pcktBuf, 0x10, 0xA0, 0, anySUSyID, anySerial);
+            writePacketHeader(pcktBuf, 0x01, RootDeviceAddress);
+            writePacket(pcktBuf, 0x10, 0xA0, 0, anySUSyID, anySerial);
 			writeLong(pcktBuf, 0xF000020A);
 			writeLong(pcktBuf, 0x00236D00);
 			writeLong(pcktBuf, 0x00236D00);
